@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovation Squad</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: rgb(0, 85, 255);
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #users {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 3fr));
+            gap: 20px;
+        }
+
+        .user {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 50%;
+        }
+
+        #newUsersContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #1e1e1e;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+
+        #header h1 {
+            font-size: 36px;
+            letter-spacing: 2px;
+        }
+
+        #controls button {
+            background-color: #f35050;
+            color: #fff;
+        }
+
+        #controls button:hover {
+            background-color: #e93c3c;
+        }
+
+        #newUsersContainer select, #newUsersContainer button {
+            background-color: #333;
+            color: #fff;
+        }
+
+        #newUsersContainer select:hover, #newUsersContainer button:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <h1>Picture Array - Innovation Squad and Innodevs</h1>
+</div>
+<div id="container">
+    <div id="controls">
+        <button onclick="removeFirstUser()">Remove First User</button>
+        <button onclick="removeLastUser()">Remove Last User</button>
+        <button onclick="window.location.reload()">Refresh</button>
+    </div>
+    <div id="newUsersContainer">
+        <select name="" id="newUsers" onchange="getSelectedUser()"></select>
+        <button onclick="addToStart()">Add to Start</button>
+        <button onclick="addToEnd()">Add to End</button>
+    </div>
+    <div id="users">
+        <!-- User cards will be added here -->
+    </div>
+</div>
+<script>
+     let users = [
+        {
+          firstName: "Uthman",
+          lastName: "Dantata",
+          email: "uthman@gmail.com",
+          profileImage: "images/uthman.png",
+        },
+        {
+          firstName: "Sherifah",
+          lastName: "Omitogun",
+          email: "sherifahomitigun@gmail.com",
+          profileImage: "images/sherifah.png",
+        },
+        {
+          firstName: "Vincent",
+          lastName: "Nkem",
+          email: "nkemvincent@gmail.com",
+          profileImage: "images/vincent.png",
+        },
+      ];
+
+      // New Users to be added
+      let newUserList = [
+        {
+          firstName: "Henry",
+          lastName: "Ije",
+          email: "henryije@gmail.com",
+          profileImage: "images/henry.png",
+        },
+        {
+          firstName: "Owen",
+          lastName: "Febechukwu",
+          email: "febechukwuowen@gmail.com",
+          profileImage: "images/owen.png",
+        },
+        {
+          firstName: "Soliu",
+          lastName: "Soliu",
+          email: "soliu@gmail.com",
+          profileImage: "images/soliu.png",
+          group: 1,
+        },
+        {
+          firstName: "Mustapha",
+          lastName: "Anthonio",
+          email: "engamo123@gmail.com",
+          profileImage: "images/mustapha.jpeg",
+        },
+        {
+          firstName: "Aisosa",
+          lastName: "Oyakhire",
+          email: "aisosaoyakhire@gmail.com",
+          profileImage: "images/aisosa.png",
+        },
+
+        {
+          firstName: "Grace",
+          lastName: "Adie",
+          email: "graceadie@gmail.com",
+          profileImage: "images/grace.png",
+        },
+        {
+          firstName: "Kawthar",
+          lastName: "Sulaiman",
+          email: "sulaimankawthar@gmail.com",
+          profileImage: "images/kawthar.png",
+        },
+        {
+          firstName: "Ismail",
+          lastName: "Olagunju",
+          email: "ismail@gmail.com",
+          profileImage: "images/Ismail.png",
+        },
+        {
+          firstName: "Obinna",
+          lastName: "Ugwu",
+          email: "obyno@gmail.com",
+          profileImage: "images/Obinna.png",
+        },
+        {
+          firstName: "Nofisat",
+          lastName: "Aisha",
+          email: "nofi-nofi@gmail.com",
+          profileImage: "images/Nofisat.png",
+        },
+        {
+          firstName: "Elizabeth",
+          lastName: "Okwong",
+          email: "leezybeezy@gmail.com",
+          profileImage: "images/Elizabeth.png",
+        },
+        {
+          firstName: "Daniel",
+          lastName: "Onuma",
+          email: "danionu@gmail.com",
+          profileImage: "images/Daniel.png",
+        },
+        {
+          firstName: "Chisom",
+          lastName: "Ejemba",
+          email: "chisomejemba@gmail.com",
+          profileImage: "images/Chisom.png",
+        },
+      ];
+
+
+  
+      let usersContainer = document.getElementById("users");
+      let newUsersOptions = document.getElementById("newUsers");
+  
+      renderUsers();
+
+      function renderUsers() {
+        let userBox = "";
+        let newUser = "<option> Select new user</option>";
+
+        users.forEach((user) => {
+          userBox += `<div class="user">
+                      <img src="${user.profileImage}" alt="${user.firstName}"/>
+                      ${user.firstName}
+                     ${user.lastName}</div>`;
+          usersContainer.innerHTML = userBox;
+        });
+
+        newUserList.forEach((user) => {
+          newUser += `<option value= ${JSON.stringify(user)}> ${
+            user.firstName
+          } ${user.lastName}</option>`;
+          newUsersOptions.innerHTML = newUser;
+        });
+      }
+
+      function removeFirstUser() {
+        let removedUser = users.shift();
+        alert(
+          `${removedUser.firstName} has been removed. We have ${users.length} users left`
+        );
+        renderUsers();
+      }
+      function removeLastUser() {
+        let removedUser = users.pop();
+        alert(
+          `${removedUser.firstName} has been removed. We have ${users.length} users left`
+        );
+        renderUsers();
+      }
+      function getSelectedUser() {
+        let selectedUser =
+          newUsersOptions.options[newUsersOptions.selectedIndex].value;
+        return selectedUser;
+      }
+      function addToStart() {
+        let selected = getSelectedUser();
+        users.unshift(JSON.parse(selected));
+        renderUsers();
+      }
+      function addToEnd() {
+        let selected = getSelectedUser();
+        users.push(JSON.parse(selected));
+        renderUsers();
+      }
+</script>
+</body>
+</html>
